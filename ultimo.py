@@ -138,10 +138,12 @@ def pixel_to_baxter(px, dist):
 		cam_y_offset=cam_y_offset + 0.09 #0.08
 		cam_x_offset=cam_x_offset + 0.06
 	'''
-			
-	if (px[0] > 700 and px[0]<= 800):		
-		cam_y_offset=cam_y_offset + 0.08
-		cam_x_offset=cam_x_offset +0.09
+	if (px[0] > 750 and px[1] > 500):
+		cam_x_offset =cam_x_offset + 0.03
+		cam_y_offset = cam_y_offset + 0.03
+	if (px[0] > 700 and px[0]<= 750):		
+		cam_y_offset=cam_y_offset + 0.07
+		cam_x_offset=cam_x_offset +0.06
 	if (px[0]> 800):
 		cam_x_offset=cam_x_offset + 0.05
 		cam_y_offset=cam_y_offset + 0.05
@@ -288,7 +290,8 @@ while not rospy.is_shutdown():	# Capture frame-by-frame
 	#	print "Ahorita no joven"
 		continue
 	frame=foto
-	cv2.imwrite("F.jpg",frame)
+	cv2.imwrite("F35.jpg",frame)
+	print "imagen tomada"
 	circles=transformacion(frame)
 	dibujarcirculo(circles,frame)
 	#copia_cir=circles

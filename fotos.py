@@ -294,7 +294,8 @@ while not rospy.is_shutdown():	# Capture frame-by-frame
 	#	print "Ahorita no joven"
 		continue
 	frame=foto
-	cv2.imwrite("F6.jpg",frame)
+	cv2.imwrite("F7.jpg",frame)
+	print "Foto tomada"
 	#circles=transformacion(frame)
 	#dibujarcirculo(circles,frame)
 	#copia_cir=circles
