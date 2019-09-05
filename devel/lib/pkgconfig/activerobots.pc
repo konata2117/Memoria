@@ -1,0 +1,8 @@
+prefix=/home/natalia/Descargas/tensorflow/tensorflow/Memoria/devel
+
+Name: activerobots
+Description: Description of activerobots
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/natalia/Descargas/tensorflow/tensorflow/Memoria/devel/lib 
+Requires: 

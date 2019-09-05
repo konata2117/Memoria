@@ -30,7 +30,7 @@ foto = None
 		#print (limb_interface.endpoint_pose())
 		#print ("Arm Euler angles: ", euler)
 # Pose inicial 47 x27 cm
-xx = 0.45 #0.5
+xx = 0.5 #0.5
 yy = 0.48 #0.6
 zz = -0.10 #-0.10
 roll = -math.pi	#Rotacion x
@@ -50,7 +50,7 @@ gripper.calibrate()
 
 cam_calibracion = 0.0025            # 0.0025 pixeles por metro a 1 metro de distancia. Factor de correccion 0.025
   #-0.02			-0.15
-#resolution      = 1
+resolution      = 1
 width           = 960             # 1280 640  960
 height          = 600               # 800  400  600
 #The above step is to set the Resolution of the Video. The default is 640x480.
@@ -118,17 +118,17 @@ def pixel_to_baxter(px, dist):
 		cam_y_offset=cam_y_offset + 0.11
 		cam_x_offset=cam_x_offset + 0.07
 	if (px[0] > 400 and px[0]<= 500):
-		cam_y_offset=cam_y_offset + 0.11
-		cam_x_offset=cam_x_offset + 0.09	
+		cam_y_offset=cam_y_offset + 0.12
+		cam_x_offset=cam_x_offset + 0.08	
 	
 
-	if (px[0] > 500 and px[0] <= 700):
-		cam_y_offset=cam_y_offset + 0.08
-		cam_x_offset=cam_x_offset + 0.09
-	'''
-	if (px[0] >= 570 and px[0] <= 600):
+	if (px[0] > 500 and px[0] <= 550):
 		cam_y_offset=cam_y_offset + 0.09
-		cam_x_offset=cam_x_offset + 0.06
+		cam_x_offset=cam_x_offset + 0.09
+	
+	if (px[0] >= 550 and px[0] <= 600):
+		cam_y_offset=cam_y_offset + 0.09
+		cam_x_offset=cam_x_offset + 0.09
 
 	if (px[0] > 600 and px[0]<= 620):
 		cam_y_offset=cam_y_offset + 0.09
@@ -141,6 +141,7 @@ def pixel_to_baxter(px, dist):
 	if (px[0] > 750 and px[1] > 500):
 		cam_x_offset =cam_x_offset + 0.03
 		cam_y_offset = cam_y_offset + 0.03
+	'''
 	if (px[0] > 700 and px[0]<= 750):		
 		cam_y_offset=cam_y_offset + 0.07
 		cam_x_offset=cam_x_offset +0.06
@@ -290,7 +291,7 @@ while not rospy.is_shutdown():	# Capture frame-by-frame
 	#	print "Ahorita no joven"
 		continue
 	frame=foto
-	cv2.imwrite("Frame_3.jpg",frame)
+	cv2.imwrite("Frame_35.jpg",frame)
 	print "imagen tomada"
 	circles=transformacion(frame)
 	dibujarcirculo(circles,frame)
@@ -304,8 +305,8 @@ while not rospy.is_shutdown():	# Capture frame-by-frame
 
 	
 	
-	cv2.imshow("Frame",frame)
-	cv2.waitKey(0)
+	#cv2.imshow("Frame",frame)
+	#cv2.waitKey(0)
 	#send_image("Frame.jpg")
 	#acercarse a la torre
 
@@ -390,7 +391,7 @@ while not rospy.is_shutdown():	# Capture frame-by-frame
 		#pose_i = [pun[0], pun[1], z, roll, pitch, yaw]
 		#pose = [pun[0], pun[1], z, roll, pitch, yaw]
 			print "pase por aca"
-			t=t-0.01
+			t=t-0.02
 
 
 			
