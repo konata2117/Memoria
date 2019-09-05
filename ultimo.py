@@ -32,7 +32,7 @@ foto = None
 # Pose inicial 47 x27 cm
 xx = 0.45 #0.5
 yy = 0.48 #0.6
-zz = -0.10
+zz = -0.10 #-0.10
 roll = -math.pi	#Rotacion x
 pitch = 0.0	#Rotacion y	
 yaw = 0.0		#Rotacion z
@@ -290,10 +290,11 @@ while not rospy.is_shutdown():	# Capture frame-by-frame
 	#	print "Ahorita no joven"
 		continue
 	frame=foto
-	cv2.imwrite("F35.jpg",frame)
+	cv2.imwrite("Frame_3.jpg",frame)
 	print "imagen tomada"
 	circles=transformacion(frame)
 	dibujarcirculo(circles,frame)
+
 	#copia_cir=circles
 	#print type(copia_cir)
 
@@ -303,8 +304,8 @@ while not rospy.is_shutdown():	# Capture frame-by-frame
 
 	
 	
-	#cv2.imshow("Frame",frame)
-	#cv2.waitKey(0)
+	cv2.imshow("Frame",frame)
+	cv2.waitKey(0)
 	#send_image("Frame.jpg")
 	#acercarse a la torre
 
