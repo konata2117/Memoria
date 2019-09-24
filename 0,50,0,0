@@ -1,0 +1,15 @@
+id=MagickCache
+quantum-depth=16
+class=DirectClass  colors=0  matte=False
+columns=332  rows=332 depth=8
+colorspace=RGB
+compression=JPEG  quality=75
+resolution=72x72
+page=332x332+0+0
+gamma=1
+date:create=2019-09-23T23:26:04-03:00
+date:modify=2019-09-23T23:26:04-03:00
+jpeg:colorspace=2
+jpeg:sampling-factor=2x2,1x1,1x1
+
+:

@@ -17,12 +17,23 @@ from geometry_msgs.msg import PoseStamped
 from sensor_msgs.msg import JointState
 import tf
 import sys
+from PIL import Image as ima
 
 rospy.init_node('camarita2',anonymous=True)
 cap = baxter_interface.CameraController('left_hand_camera') 
 cap.open()
 cap.resolution=(960,600)
 #cap.resolution = cap.MODES[0]
+
+
+#cap = cv2.VideoCapture(2)
+
+   
+
+
+
+#cv2.imshow(cap2)
+#cv2.waitKey(0)
 foto = None
 #def QtoE(): #Quaternion to Euler. Converts Quaternion angles(x, y, z, w) into Euler angles (x, y ,z) and prints them
 		#euler = tf.transformations.euler_from_quaternion(limb_interface.endpoint_pose()['orientation'])
@@ -288,7 +299,8 @@ dist = get_distance("left")
 circle	=[]
 while not rospy.is_shutdown():	# Capture frame-by-frame
 	while np.all(foto) == None:
-	#	print "Ahorita no joven"
+		
+		#print "Ahorita no joven"
 		continue
 	frame=foto
 	cv2.imwrite("Frame_35.jpg",frame)
@@ -299,6 +311,7 @@ while not rospy.is_shutdown():	# Capture frame-by-frame
 	#copia_cir=circles
 	#print type(copia_cir)
 
+
 	#print "Circulos", len(circles)
 	#rospy.sleep(2)
 	circles=np.round(circles[0,:].astype("int"))
@@ -307,6 +320,8 @@ while not rospy.is_shutdown():	# Capture frame-by-frame
 	
 	#cv2.imshow("Frame",frame)
 	#cv2.waitKey(0)
+
+
 	#send_image("Frame.jpg")
 	#acercarse a la torre
 
@@ -341,6 +356,12 @@ while not rospy.is_shutdown():	# Capture frame-by-frame
 	while circles1:
 		
 		punto=circles1.pop()
+		cv2.imshow("frame",frame)
+		cv2.waitKey(0)
+		frame1 = ima.open("./Frame_35.jpg")
+		cropped = frame1.crop((punto[1]- punto[0] - 100,punto[2]- punto[0] - 100 , punto[0] + 100 + punto[1], 100 +punto[2] + punto[0]))
+		cropped.show()
+		cropped.save("crop.jpg")
 		send_image("feliz.jpg")
 		print "tamaño while: ",len(circles1)
 		print "punto: ", punto[1],punto[2]
