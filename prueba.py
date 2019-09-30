@@ -1,13 +1,13 @@
 import cv2
 import numpy as np
- 
+import matplotlib.pyplot as plt
 #Iniciamos la camara
-imagen  = cv2.imread("azul.jpg")
+imagen  = cv2.imread("F13.jpg")
  
 
      
 #Capturamos una imagen y la convertimos de RGB -> HSV
-
+#imagen = cv2.cvtColor(imagen,cv2.COLOR_BGR2HSV)
 hsv = cv2.cvtColor(imagen, cv2.COLOR_BGR2HSV)
  #convert it to hsv
 

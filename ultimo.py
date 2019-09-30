@@ -4,7 +4,7 @@
 import numpy as np
 import argparse
 import cv2
-import cv2.cv as cv 
+
 import time
 import baxter_interface 
 import roslib
@@ -228,7 +228,7 @@ def transformacion(frame):
 	#canny = cv2.Canny(gray, 40, 80)
 	#cv2.imshow("GR",gray)
 	#detectar circulos en la imagen
-	circles =cv2.HoughCircles(gray,cv.CV_HOUGH_GRADIENT,1, 100, param1=40, param2=40,minRadius=45, maxRadius=160)
+	circles =cv2.HoughCircles(gray,cv2.HOUGH_GRADIENT,1, 100, param1=40, param2=40,minRadius=45, maxRadius=160)
 	#circles = cv2.HoughCircles(gray, cv.CV_HOUGH_GRADIENT, 1, 200, param1=40, param2=45, minRadius=20, maxRadius=140)
 	return circles 
 
@@ -353,15 +353,19 @@ while not rospy.is_shutdown():	# Capture frame-by-frame
 		circles1.append(dd[i])
 	print circles1
 	y=0.05
+	i = 1
+	name = ""
 	while circles1:
 		
 		punto=circles1.pop()
-		cv2.imshow("frame",frame)
-		cv2.waitKey(0)
+		#cv2.imshow("frame",frame)
+		#cv2.waitKey(0)
 		frame1 = ima.open("./Frame_35.jpg")
 		cropped = frame1.crop((punto[1]- punto[0] - 100,punto[2]- punto[0] - 100 , punto[0] + 100 + punto[1], 100 +punto[2] + punto[0]))
+		name = str(i) + ".jpg"
 		cropped.show()
-		cropped.save("crop.jpg")
+		cropped.save(name)
+		i= i+ 1 
 		send_image("feliz.jpg")
 		print "tamaño while: ",len(circles1)
 		print "punto: ", punto[1],punto[2]
