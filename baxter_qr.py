@@ -45,7 +45,7 @@ class Camara:
         foto = frame
         if cv2.waitKey(27) >= 0:
             break
-        circles = hough(frame)
+        #circles = hough(frame)
 
 
         #cv2.imwrite("framecircles.jpg",frame)
@@ -64,7 +64,8 @@ class Camara:
         
         
         self.release()   
-        return circles
+        return qro
+        #return circles
 def main():
         capturer = Camara('/dev/video', 1)
         capturer.capture()

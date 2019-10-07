@@ -29,15 +29,25 @@ def qr(frame):
     # encuentra los códigos de barras (código qr) en el tablero y decodifica cada uno de los códigos de barras    
     barcodes = pyzbar.decode(frame)
     # loop sobre los códigos de barras detectados
-    lis= {}    
+    lis= {}
+    punto = []    
     for barcode in barcodes:
         # Extrae la ubicación del cuadro delimitador de código de barras y dibuja
         # el cuadro delimitador que rodea el código de barras en la imagen (en este caso es verde)
-        (x, y, w, h) = barcode.rect
-        cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
-        
-        
-        print x, y ,w ,h
+        rect = barcode.rect
+        cx = (rect.left + rect.width  + rect.left)/2
+        cy = (rect.height + rect.top + rect.top)/ 2
+        #cv2.line(frame, (rect.left, rect.top) , (rect.left +rect.width,rect.left + rect.height  ), (0,0,255),2)
+        #cv2.line(frame,(rect.left + rect.height, rect.top + rect.height) , (rect.left  + rect.width, rect.top  + rect.width), (0,255,0),2)
+        punto.append(cx)
+        punto.append(cy)
+
+        #(x, y, w, h) = barcode.rect
+        #cv2.recta(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
+        cv2.rectangle(frame,(rect.left , rect.top), (rect.left + rect.width,rect.top + rect.height), (0,255,0), 2)
+        cv2.circle(frame, (cx,cy), 3, (0,0,255),2)
+        print rect 
+
        # cv2.rectangle(frame, (round(x/2), round(y/2)), (round((x+w )/ 2), round((y+h)/ 2)) , (0,255,0), 2)
         # los datos del código de barras son un objeto byte, así que si queremos dibujarlos
         # en la imagen de salida, necesitamos convertirla a un string
@@ -50,18 +60,22 @@ def qr(frame):
 
         print type(text)
         #cv2.putText(frame, text, (cx , cy), cv2.FONT_HERSHEY_SIMPLEX, 0.5,(0,255,0),2)
-        cv2.putText(frame, text, (x, y-10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
+        cv2.putText(frame, text, (rect.left, rect.top-10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
         if barcodeData not in found:
                 csv.write("{}\n".format(barcodeData))
                 csv.flush()
                 found.clear()
                 found.add(barcodeData)
-        lis[text]= []
+        lis[text]= punto
+        punto= []
         print lis
 
         # Título de la vetnana
     cv2.imshow("QR_Reader", frame)
-    
+       # cv2.waitKey(0)
+
+        #if key == ord("q"):
+         #   break
 
     # Archivo .csv
     print("[INFO] Finalizando, cerrando el archivo CSV....")

@@ -41,9 +41,9 @@ foto = None
 		#print (limb_interface.endpoint_pose())
 		#print ("Arm Euler angles: ", euler)
 # Pose inicial 47 x27 cm
-xx = 0.5 #0.5
+xx = 0.6 #0.5
 yy = 0.48 #0.6
-zz = 0.0 #-0.10
+zz = 0.05 #-0.10
 roll = -math.pi	#Rotacion x
 pitch = 0.0	#Rotacion y	
 yaw = 0.0		#Rotacion z
@@ -108,8 +108,8 @@ def mensaje_matriz_a_pose(T, frame):
 	return t
 
 def pixel_to_baxter(px, dist):
-	cam_x_offset    = -0.05      # Correccion de camara por los gripper, 0.04 / -0.015 0.045 -0.045
-	cam_y_offset    = -0.12 			#-0.15
+	cam_x_offset    = -0.05   # Correccion de camara por los gripper, 0.04 / -0.015 0.045 -0.045 0.05
+	cam_y_offset    = -0.12 			#-0.15 0.12
 	'''
 	if (px[0] >1000):
 	
@@ -134,8 +134,8 @@ def pixel_to_baxter(px, dist):
 	
 
 	if (px[0] > 500 and px[0] <= 550):
-		cam_y_offset=cam_y_offset + 0.1
-		cam_x_offset=cam_x_offset + 0.05
+		cam_y_offset=cam_y_offset + 0.12
+		cam_x_offset=cam_x_offset + 0.03
 	
 	if (px[0] >= 550 and px[0] <= 600):
 		cam_y_offset=cam_y_offset + 0.09
@@ -146,16 +146,16 @@ def pixel_to_baxter(px, dist):
 		cam_x_offset=cam_x_offset + 0.06
 	
 	if (px[0] > 620 and px[0] <= 700):
-		cam_y_offset=cam_y_offset + 0.09 #0.08
-		cam_x_offset=cam_x_offset + 0.06
+		cam_y_offset=cam_y_offset + 0.07 #0.08
+		cam_x_offset=cam_x_offset + 0.05
 	'''
 	if (px[0] > 750 and px[1] > 500):
 		cam_x_offset =cam_x_offset + 0.03
 		cam_y_offset = cam_y_offset + 0.03
 	'''
 	if (px[0] > 700 and px[0]<= 750):		
-		cam_y_offset=cam_y_offset + 0.07
-		cam_x_offset=cam_x_offset +0.06
+		cam_y_offset=cam_y_offset + 0.01 #revisar para mañana
+		cam_x_offset=cam_x_offset +0.02
 	if (px[0]> 800):
 		cam_x_offset=cam_x_offset + 0.05
 		cam_y_offset=cam_y_offset + 0.05
@@ -224,24 +224,37 @@ mover_baxter('base',[xx,yy,zz],[-math.pi,0,0])
 
 
 def movimiento():
-
+	numero = input("bloques: ")
+	blos = []
+	for i in range(numero):
+		blo= raw_input("color: ")
+		blos.append(blo.upper())
+	lisa= [] # lista que guarda los bloques 
+	lisa.append("VERDE")
+	lisa.append("ROJO")
+	lisa.append("AZUL")
+	lisa.append("AMARILLO")
+	print lisa
 	while not rospy.is_shutdown():	# Capture frame-by-frame
+		
 		t=0.16
 		capt= Camara('/dev/video', 1)
 		circles= capt.capture()
-	
+		print type(circles)
 		frame=cv2.imread("qrdetectado.jpg")
-#		cv2.imwrite("Frame_35.jpg",frame)
+		print "bloques ",circles[blos[0]]
+		print "X: ", circles[blos[0]][0]	
+		print len(circles)	
+		#cv2.imwrite("Frame_35.jpg",frame)
 		#print "imagen 
 	
 
 		#copia_cir=circles
 		#print type(copia_cir)
 
-
 		#print "Circulos", len(circles)
 		#rospy.sleep(2)
-		circles=np.round(circles[0,:].astype("int"))
+		#circles=np.round(circles[0,:].astype("int"))
 
 	
 	
@@ -255,25 +268,26 @@ def movimiento():
 		#circles1= []
 		#print type(circles1) 
 	
-		print "Dimension: ", circles.ndim
+		#print "Dimension: ", circles.ndim
 		#for i in range(circles.ndim):
 		#circles1.append(circles[i])
 		#print circles1
 		#x1=0.61195328392783256
 		#y1=-0.6652463368344972
 		#deposito2=[x=0.31195328392783256, y=0.6652463368344972]
-		circles1=list(circles)
+		#circles1=list(circles)
 
-		print "circles1",circles1
-		print "Tamaño Circle1: ",len(circles1)
-		e=0.02
-		tamano=len(circles1)
+		#print "circles1",circles1
+		#print "Tamaño Circle1: ",len(circles1)
+		#e=0.02
+		#tamano=len(circles1)
 		
-
+		
 		i = 0
-		while circles1:
-		
-			punto=circles1.pop()
+		while circles:
+			#poner el error del circle
+			punto=circles[blos[i]]
+			del circles[blos[i]]
 			#cv2.imshow("frame",frame)
 			#cv2.waitKey(0)
 			#frame1 = ima.open("./qrdetectado.jpg")
@@ -283,11 +297,11 @@ def movimiento():
 			#cropped.save(name)
 			#i= i+ 1 
 			send_image("feliz.jpg")
-			print "tamaño while: ",len(circles1)
-			print "punto: ", punto[1],punto[2]
-			pun=pixel_to_baxter((punto[1], punto[2] ),dist)
+			#print "tamaño while: ",len(circles1)
+			print "punto: ", punto[0],punto[1]
+			pun=pixel_to_baxter((punto[0], punto[1] ),dist)
 			centro1= pixel_to_baxter((480,300),dist)
-			print punto[2]
+			#print punto[2]
 			#(puntox,puntoy)=pixel_to_baxter(punto,0.3)
 			#print "puntox: ",puntox ,"puntoy: ",puntoy
 			rospy.sleep(0.5)
@@ -332,9 +346,12 @@ def movimiento():
 				#pose_i = [pun[0], pun[1], z, roll, pitch, yaw]
 				#pose = [pun[0], pun[1], z, roll, pitch, yaw]
 				print "pase por aca"
+				blos.pop(i)
+				i = i +  1
 				t=t-0.02
 
 
+			
 def main():
 	
 	movimiento()
