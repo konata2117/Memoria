@@ -41,12 +41,13 @@ foto = None
 		#print (limb_interface.endpoint_pose())
 		#print ("Arm Euler angles: ", euler)
 # Pose inicial 47 x27 cm
-xx = 0.6 #0.5
+xx = 0.55 #0.5
 yy = 0.48 #0.6
 zz = 0.05 #-0.10
 roll = -math.pi	#Rotacion x
 pitch = 0.0	#Rotacion y	
-yaw = 0.0		#Rotacion z
+yaw = 0.0		#Rotacion z4
+
 
 dist = 0.0
 
@@ -116,52 +117,97 @@ def pixel_to_baxter(px, dist):
 		cam_y_offset= cam_y_offset + 0.05
 	'''
 	
-	if (px[0] > 0  and px[0] <= 100):
+	if (px[0] > 0  and px[0] <= 100 and px[1] <= 200):
+		cam_y_offset=cam_y_offset + 0.28
+		cam_x_offset=cam_x_offset + 0.04
+	if (px[0] > 100  and px[0] <= 200 and px[1] <= 200):
+		cam_y_offset=cam_y_offset + 0.27
+		cam_x_offset=cam_x_offset +0.04
+	if (px[0] > 200  and px[0] <= 300 and px[1] <= 200):
+		cam_y_offset=cam_y_offset + 0.21
+		cam_x_offset=cam_x_offset + 0.04
+	
+	if (px[0] > 300 and px[0]<= 400 and px[1] <= 200):
+		cam_y_offset=cam_y_offset + 0.19
+		cam_x_offset=cam_x_offset +0.05
+	
+	if (px[0] > 400 and px[0]<= 500 and px[1] <= 200):
+		cam_y_offset=cam_y_offset + 0.12
+		cam_x_offset=cam_x_offset + 0.01	
+	
+
+	if (px[0] > 500 and px[0] <= 550 and px[1] <= 200):
+		cam_y_offset=cam_y_offset + 0.09
+		cam_x_offset=cam_x_offset -0.02
+	
+	if (px[0] >= 550 and px[0] <= 600 and px[1] <= 200):
+		cam_y_offset=cam_y_offset + 0.09
+		cam_x_offset=cam_x_offset + 0.02
+
+	if (px[0] > 600 and px[0]<= 620 and px[1] <= 200):
 		cam_y_offset=cam_y_offset + 0.06
-		cam_x_offset=cam_x_offset + 0.08
-	if (px[0] > 100  and px[0] <= 200):
-		cam_y_offset=cam_y_offset + 0.14
-		cam_x_offset=cam_x_offset +0.08
-	if (px[0] > 200  and px[0] <= 300):
-		cam_y_offset=cam_y_offset + 0.12
-		cam_x_offset=cam_x_offset + 0.05
-	if (px[0] > 300 and px[0]<= 400):
-		cam_y_offset=cam_y_offset + 0.08
-		cam_x_offset=cam_x_offset + 0.07
-	if (px[0] > 400 and px[0]<= 500):
-		cam_y_offset=cam_y_offset + 0.08
-		cam_x_offset=cam_x_offset + 0.05	
+		cam_x_offset=cam_x_offset - 0.03
 	
+	if (px[0] > 620 and px[0] <= 700 and px[1] <= 200):
+		cam_y_offset=cam_y_offset + 0.05 #0.08
+		cam_x_offset=cam_x_offset + 0.05
 
-	if (px[0] > 500 and px[0] <= 550):
+	
+	if (px[0] > 700 and px[0]<= 750 and px[1] <= 200):		
+		cam_y_offset=cam_y_offset + 0.02 #revisar para mañana
+		cam_x_offset=cam_x_offset + 0.05 
+	if (px[0] > 750 and px[0]<= 800 and px[1] <= 200):
+		cam_x_offset = cam_x_offset - 0.05
+		cam_y_offset = cam_y_offset +0.05
+	if (px[0]> 800 and px[0] < 850 and px[1] <= 200):
+		cam_x_offset=cam_x_offset - 0.03
+		cam_y_offset=cam_y_offset -0.01
+	if (px[0]> 850 and px[1] <= 200 ):
+		cam_x_offset=cam_x_offset + 0.05
+		cam_y_offset=cam_y_offset - 0.04
+	
+		
+	if (px[0] > 0  and px[0] <= 100 and px[1] > 200):
+		cam_y_offset=cam_y_offset + 0.3
+		cam_x_offset=cam_x_offset - 0.04
+	if (px[0] > 100  and px[0] <= 200 and px[1] > 200):
+		cam_y_offset=cam_y_offset + 0.26
+		cam_x_offset=cam_x_offset -0.06
+	if (px[0] > 200  and px[0] <= 300 and px[1] > 200):
+		cam_y_offset=cam_y_offset + 0.22
+		cam_x_offset=cam_x_offset - 0.04
+	if (px[0] > 300 and px[0]<= 400 and px[1] > 200):
+		cam_y_offset=cam_y_offset + 0.22
+		cam_x_offset=cam_x_offset + 0.01
+	if (px[0] > 400 and px[0]<= 500 and px[1] > 200):
 		cam_y_offset=cam_y_offset + 0.12
-		cam_x_offset=cam_x_offset + 0.03
-	
-	if (px[0] >= 550 and px[0] <= 600):
+		cam_x_offset=cam_x_offset -0.05	
+	if (px[0] > 500 and px[0] <= 550 and px[1] > 200):
 		cam_y_offset=cam_y_offset + 0.09
-		cam_x_offset=cam_x_offset + 0.09
-
-	if (px[0] > 600 and px[0]<= 620):
+		cam_x_offset=cam_x_offset -0.1
+	if (px[0] >= 550 and px[0] <= 600 and px[1] > 200):
 		cam_y_offset=cam_y_offset + 0.09
-		cam_x_offset=cam_x_offset + 0.06
+		cam_x_offset=cam_x_offset -0.07
+	if (px[0] > 600 and px[0]<= 620 and px[1] > 200):
+		cam_y_offset=cam_y_offset + 0.06
+		cam_x_offset=cam_x_offset - 0.08
+	if (px[0] > 620 and px[0] <= 700 and px[1] > 200):
+		cam_y_offset=cam_y_offset + 0.04 #0.08
+		cam_x_offset=cam_x_offset -0.07
+	if (px[0] > 700 and px[0]<= 750 and px[1] > 200):		
+		cam_y_offset=cam_y_offset + 0.02 #revisar para mañana
+		cam_x_offset=cam_x_offset - 0.05
+	if (px[0] > 750 and px[0]<= 800 and px[1] > 200):
+		cam_x_offset = cam_x_offset + 0.05
+		cam_y_offset = cam_y_offset - 0.01
 	
-	if (px[0] > 620 and px[0] <= 700):
-		cam_y_offset=cam_y_offset + 0.07 #0.08
+	if (px[0]> 800 and px[0] < 850 and px[1] > 200):
+		cam_x_offset=cam_x_offset - 0.07
+		cam_y_offset=cam_y_offset -0.03
+	if (px[0]> 850 and px[1] > 200 ):
 		cam_x_offset=cam_x_offset + 0.05
-	'''
-	if (px[0] > 750 and px[1] > 500):
-		cam_x_offset =cam_x_offset + 0.03
-		cam_y_offset = cam_y_offset + 0.03
-	'''
-	if (px[0] > 700 and px[0]<= 750):		
-		cam_y_offset=cam_y_offset + 0.01 #revisar para mañana
-		cam_x_offset=cam_x_offset +0.02
-	if (px[0]> 800):
-		cam_x_offset=cam_x_offset + 0.05
-		cam_y_offset=cam_y_offset + 0.05
-	
-	
-	
+		cam_y_offset=cam_y_offset - 0.04
+		
 	print "px[0]", px[0]
 	print "px[1]", px[1]
 	print "pose_i: ",pose_i
@@ -222,7 +268,7 @@ def mover_baxter(source_frame, trans, rot):
 mover_baxter('base',[xx,yy,zz],[-math.pi,0,0])
 
 
-
+i = 0
 def movimiento():
 	numero = input("bloques: ")
 	blos = []
@@ -242,9 +288,9 @@ def movimiento():
 		circles= capt.capture()
 		print type(circles)
 		frame=cv2.imread("qrdetectado.jpg")
-		print "bloques ",circles[blos[0]]
-		print "X: ", circles[blos[0]][0]	
-		print len(circles)	
+		#print "bloques ",circles[blos[0]]
+		#print "X: ", circles[blos[0]][0]	
+		#print len(circles)	
 		#cv2.imwrite("Frame_35.jpg",frame)
 		#print "imagen 
 	
@@ -283,11 +329,17 @@ def movimiento():
 		#tamano=len(circles1)
 		
 		
-		i = 0
+		#if len(circles) == 0 :
+		#	break
 		while circles:
+			
 			#poner el error del circle
-			punto=circles[blos[i]]
-			del circles[blos[i]]
+			if len(blos) == 0 :
+				break
+			if len(circles) != len(blos):
+				break
+			punto=circles[blos[0]]
+			del circles[blos[0]]
 			#cv2.imshow("frame",frame)
 			#cv2.waitKey(0)
 			#frame1 = ima.open("./qrdetectado.jpg")
@@ -321,7 +373,7 @@ def movimiento():
 			if gripper.force()==0:
 				print 'no hay nada en el gripper'
 				send_image("que.jpg")
-				mover_baxter('base',[pun[0],pun[1],0.0],[-math.pi,0,0])
+				mover_baxter('base',[xx,yy,zz],[-math.pi,0,0])
 				gripper.open()
 				mover_baxter('base',[xx,yy,zz],[-math.pi,0,0])
 				
@@ -341,12 +393,14 @@ def movimiento():
 				mover_baxter('base',[0.47,0.1,t],[-math.pi,0,0])
 				send_image("pop.jpg")
 				rospy.sleep(0.5)
-				mover_baxter('base',[pun[0],pun[1],0.0],[-math.pi,0,0])
+				mover_baxter('base',[xx,yy,zz],[-math.pi,0,0])
 				#mover_baxter('base',[0.4,-0.3,t],[-math.pi,0,0])
 				#pose_i = [pun[0], pun[1], z, roll, pitch, yaw]
 				#pose = [pun[0], pun[1], z, roll, pitch, yaw]
 				print "pase por aca"
-				blos.pop(i)
+				#circles[blos[0]]
+				blos.pop(0)
+
 				i = i +  1
 				t=t-0.02
 
