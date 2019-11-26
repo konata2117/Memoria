@@ -3,7 +3,7 @@ import numpy as np
 import cv2
 
 #Inicializar la camara
-capture = cv2.VideoCapture(1)
+capture = cv2.VideoCapture(0)
  
 #Cargar la fuente
 font = cv2.FONT_HERSHEY_SIMPLEX

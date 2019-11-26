@@ -4,7 +4,8 @@
 import numpy as np
 import argparse
 import cv2
-
+from planner import Planner
+from doc import PLAN
 import time
 import baxter_interface 
 import roslib
@@ -249,17 +250,21 @@ mover_baxter('base',[xx,yy,zz],[-math.pi,0,0])
 
 i = 0
 def movimiento():
-	numero = input("bloques: ")
-	blos = []
-	for i in range(numero):
-		blo= raw_input("color: ")
-		blos.append(blo.upper())
-	lisa= [] # lista que guarda los bloques 
-	lisa.append("VERDE")
-	lisa.append("ROJO")
-	lisa.append("AZUL")
-	lisa.append("AMARILLO")
-	print lisa
+	#numero = input("bloques: ")
+
+	#blos = []
+	#for i in range(numero):
+	#	blo= raw_input("color: ")
+	#	blos.append(blo.upper())
+
+	r = open("doc.txt", 'r')
+	mensaje = r.read()
+	liss = mensaje
+	blos = liss.split("\n")
+	r.close()
+	
+
+
 	while not rospy.is_shutdown():	# Capture frame-by-frame
 		
 		t=0.16
@@ -267,49 +272,7 @@ def movimiento():
 		circles= capt.capture()
 		print type(circles)
 		frame=cv2.imread("qrdetectado.jpg")
-		#print "bloques ",circles[blos[0]]
-		#print "X: ", circles[blos[0]][0]	
-		#print len(circles)	
-		#cv2.imwrite("Frame_35.jpg",frame)
-		#print "imagen 
-	
-
-		#copia_cir=circles
-		#print type(copia_cir)
-
-		#print "Circulos", len(circles)
-		#rospy.sleep(2)
-		#circles=np.round(circles[0,:].astype("int"))
-
-	
-	
-		#cv2.imshow("Frame",frame)
-		#cv2.waitKey(0)
-
-
-		#send_image("Frame.jpg")
-		#acercarse a la torre
-
-		#circles1= []
-		#print type(circles1) 
-	
-		#print "Dimension: ", circles.ndim
-		#for i in range(circles.ndim):
-		#circles1.append(circles[i])
-		#print circles1
-		#x1=0.61195328392783256
-		#y1=-0.6652463368344972
-		#deposito2=[x=0.31195328392783256, y=0.6652463368344972]
-		#circles1=list(circles)
-
-		#print "circles1",circles1
-		#print "Tamaño Circle1: ",len(circles1)
-		#e=0.02
-		#tamano=len(circles1)
 		
-		
-		#if len(circles) == 0 :
-		#	break
 		while circles:
 			
 			#poner el error del circle
@@ -317,17 +280,17 @@ def movimiento():
 				break
 			if len(circles) != len(blos):
 				break
+			rr=open("inicio.txt",'w')
+			for i in range(len(blos)):
+				
+				if circles[blos[i]] != None:
+					rr.write(blos[i] + "\n")
+			rr.close()
 
 			punto=circles[blos[0]]
 			del circles[blos[0]]
-			#cv2.imshow("frame",frame)
-			#cv2.waitKey(0)
-			#frame1 = ima.open("./qrdetectado.jpg")
-			#cropped = frame1.crop((punto[1]- punto[0] - 100,punto[2]- punto[0] - 100 , punto[0] + 100 + punto[1], 100 +punto[2] + punto[0]))
-			#name = str(i) + ".jpg"
-			#cropped.show()
-			#cropped.save(name)
-			#i= i+ 1 
+			plan= PLAN()
+			plan.planes("doc.txt","p8.pddl","inicio.txt") 
 			send_image("feliz.jpg")
 			#print "tamaño while: ",len(circles1)
 			print "punto: ", punto[0],punto[1]
