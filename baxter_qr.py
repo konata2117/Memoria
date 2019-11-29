@@ -71,6 +71,7 @@ def main():
         capturer.capture()
 
 if __name__ == '__main__':
-    main()
-    print "hello"
+    while (1):
+        main()
+        print "hello"
     

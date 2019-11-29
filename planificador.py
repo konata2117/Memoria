@@ -101,10 +101,10 @@ def pixel_to_baxter(px, dist):
 	'''
 	
 	if (px[0] > 0  and px[0] <= 100 and px[1] <= 200):
-		cam_y_offset=cam_y_offset + 0.28
-		cam_x_offset=cam_x_offset + 0.04
+		cam_y_offset=cam_y_offset + 0.25
+		cam_x_offset=cam_x_offset + 0.02
 	if (px[0] > 100  and px[0] <= 200 and px[1] <= 200):
-		cam_y_offset=cam_y_offset + 0.27
+		cam_y_offset=cam_y_offset + 0.22
 		cam_x_offset=cam_x_offset +0.04
 	if (px[0] > 200  and px[0] <= 300 and px[1] <= 200):
 		cam_y_offset=cam_y_offset + 0.21
@@ -115,8 +115,8 @@ def pixel_to_baxter(px, dist):
 		cam_x_offset=cam_x_offset +0.05
 	
 	if (px[0] > 400 and px[0]<= 500 and px[1] <= 200):
-		cam_y_offset=cam_y_offset + 0.12
-		cam_x_offset=cam_x_offset + 0.01	
+		cam_y_offset=cam_y_offset + 0.11
+		cam_x_offset=cam_x_offset + 0.05	
 	
 
 	if (px[0] > 500 and px[0] <= 550 and px[1] <= 200):
@@ -124,7 +124,7 @@ def pixel_to_baxter(px, dist):
 		cam_x_offset=cam_x_offset -0.02
 	
 	if (px[0] >= 550 and px[0] <= 600 and px[1] <= 200):
-		cam_y_offset=cam_y_offset + 0.09
+		cam_y_offset=cam_y_offset + 0.06
 		cam_x_offset=cam_x_offset + 0.02
 
 	if (px[0] > 600 and px[0]<= 620 and px[1] <= 200):
@@ -151,32 +151,32 @@ def pixel_to_baxter(px, dist):
 	
 		
 	if (px[0] > 0  and px[0] <= 100 and px[1] > 200):
-		cam_y_offset=cam_y_offset + 0.3
-		cam_x_offset=cam_x_offset - 0.04
+		cam_y_offset=cam_y_offset + 0.25
+		cam_x_offset=cam_x_offset - 0.01
 	if (px[0] > 100  and px[0] <= 200 and px[1] > 200):
-		cam_y_offset=cam_y_offset + 0.26
-		cam_x_offset=cam_x_offset -0.06
+		cam_y_offset=cam_y_offset + 0.24
+		cam_x_offset=cam_x_offset -0.02
 	if (px[0] > 200  and px[0] <= 300 and px[1] > 200):
-		cam_y_offset=cam_y_offset + 0.22
-		cam_x_offset=cam_x_offset - 0.04
+		cam_y_offset=cam_y_offset + 0.18
+		cam_x_offset=cam_x_offset - 0.01
 	if (px[0] > 300 and px[0]<= 400 and px[1] > 200):
-		cam_y_offset=cam_y_offset + 0.22
-		cam_x_offset=cam_x_offset + 0.01
+		cam_y_offset=cam_y_offset + 0.13
+		cam_x_offset=cam_x_offset 
 	if (px[0] > 400 and px[0]<= 500 and px[1] > 200):
 		cam_y_offset=cam_y_offset + 0.12
-		cam_x_offset=cam_x_offset -0.05	
+		cam_x_offset=cam_x_offset -0.03	
 	if (px[0] > 500 and px[0] <= 550 and px[1] > 200):
-		cam_y_offset=cam_y_offset + 0.09
-		cam_x_offset=cam_x_offset -0.1
+		cam_y_offset=cam_y_offset + 0.07
+		cam_x_offset=cam_x_offset + 0.03
 	if (px[0] >= 550 and px[0] <= 600 and px[1] > 200):
-		cam_y_offset=cam_y_offset + 0.09
+		cam_y_offset=cam_y_offset + 0.07
 		cam_x_offset=cam_x_offset -0.07
 	if (px[0] > 600 and px[0]<= 620 and px[1] > 200):
-		cam_y_offset=cam_y_offset + 0.06
-		cam_x_offset=cam_x_offset - 0.08
+		cam_y_offset=cam_y_offset + 0.05
+		cam_x_offset=cam_x_offset - 0.05
 	if (px[0] > 620 and px[0] <= 700 and px[1] > 200):
 		cam_y_offset=cam_y_offset + 0.04 #0.08
-		cam_x_offset=cam_x_offset -0.07
+		cam_x_offset=cam_x_offset -0.04
 	if (px[0] > 700 and px[0]<= 750 and px[1] > 200):		
 		cam_y_offset=cam_y_offset + 0.02 #revisar para mañana
 		cam_x_offset=cam_x_offset - 0.05
@@ -264,9 +264,11 @@ def movimiento():
 	r.close()
 	
 
-
+	for i in range(len(blos)):
+		if blos[i] == "":
+			blos.pop(i)
 	while not rospy.is_shutdown():	# Capture frame-by-frame
-		
+		print "blos: ", blos		
 		t=0.16
 		capt= Camara('/dev/video', 1)
 		circles= capt.capture()
@@ -345,7 +347,7 @@ def movimiento():
 				blos.pop(0)
 
 				i = i +  1
-				t=t-0.02
+				t=t-0.05
 
 
 			
