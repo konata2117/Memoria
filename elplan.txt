@@ -1,0 +1,13 @@
+plan:
+action: pickup
+  parameters: ('verde',)
+  positive_preconditions: [['clear', 'verde'], ['ontable', 'verde']]
+  negative_preconditions: []
+  add_effects: [['holding', 'verde']]
+  del_effects: [['clear', 'verde'], ['ontable', 'verde']]
+action: stack
+  parameters: ('verde', 'rojo')
+  positive_preconditions: [['clear', 'rojo'], ['holding', 'verde']]
+  negative_preconditions: [['equal', 'verde', 'rojo']]
+  add_effects: [['clear', 'verde'], ['on', 'verde', 'rojo']]
+  del_effects: [['clear', 'rojo'], ['holding', 'verde']]

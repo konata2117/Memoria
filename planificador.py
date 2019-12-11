@@ -6,6 +6,7 @@ import argparse
 import cv2
 from planner import Planner
 from doc import PLAN
+from parseo import Parseo 
 import time
 import baxter_interface 
 import roslib
@@ -52,7 +53,7 @@ height          = 600               # 800  400  600
 # This examp8le works with a Resolution of 640x480.
 
 
-
+###########################################################################
 def get_distance(limb):
 	if limb == "left":
 		dist = baxter_interface.analog_io.AnalogIO('left_hand_range').state()
@@ -66,15 +67,21 @@ def get_distance(limb):
 	print (float(dist / 1000.0))
 	return float(dist / 1000.0)
 
+############################################################################3
+
 def callback(msg):
 	global foto
 	foto = cv_bridge.CvBridge().imgmsg_to_cv2(msg)
+
+#############################################################################3
 
 def send_image(image):	#Shows an image on Baxter's screen
 	img = cv2.imread(image)	#Reads an image
 	msg = cv_bridge.CvBridge().cv2_to_imgmsg(img, encoding="bgr8") #Makes the opencv-ros bridge, converts an image to msg
 	pub.publish(msg) #Shows the image on Baxter's head screen
 	rospy.sleep(0.1)
+
+###############################################################################
 
 def mensaje_matriz_a_pose(T, frame):
 	t = PoseStamped()
@@ -90,6 +97,8 @@ def mensaje_matriz_a_pose(T, frame):
 	t.pose.orientation.z = orientacion[2]
 	t.pose.orientation.w = orientacion[3]        
 	return t
+
+#############################################################################
 
 def pixel_to_baxter(px, dist):
 	cam_x_offset    = -0.05   # Correccion de camara por los gripper, 0.04 / -0.015 0.045 -0.045 0.05
@@ -205,6 +214,7 @@ def pixel_to_baxter(px, dist):
     '''
 	print x , y
 	return (x, y)
+##################################################################
 
 def send_image(image):	#Shows an image on Baxter's screen
 		pub = rospy.Publisher('/robot/xdisplay', Image, latch=True, queue_size = 10)
@@ -212,6 +222,9 @@ def send_image(image):	#Shows an image on Baxter's screen
 		msg = cv_bridge.CvBridge().cv2_to_imgmsg(img, encoding="bgr8") #Makes the opencv-ros bridge, converts an image to msg
 		pub.publish(msg) #Shows the image on Baxter's head screen
 		rospy.sleep(0.1)
+
+####################################################################
+
 def mover_baxter(source_frame, trans, rot):
 	nombre_servicio = '/ExternalTools/'+ 'left' +'/PositionKinematicsNode/IKService'
 	servicio_ik = rospy.ServiceProxy(nombre_servicio,SolvePositionIK)
@@ -239,23 +252,14 @@ def mover_baxter(source_frame, trans, rot):
 		limb_interface.move_to_joint_positions(movimiento)
 	else:
 		print "Movimiento no ejecutado"
-	#print respuesta.joints[0].position
-	#print respuesta.joints[0].name
-
-        # 3ms wait
-#cv.WaitKey(3)
+	
 
 mover_baxter('base',[xx,yy,zz],[-math.pi,0,0])
 
 
 i = 0
+################################################################
 def movimiento():
-	#numero = input("bloques: ")
-
-	#blos = []
-	#for i in range(numero):
-	#	blo= raw_input("color: ")
-	#	blos.append(blo.upper())
 
 	r = open("doc.txt", 'r')
 	mensaje = r.read()
@@ -289,12 +293,31 @@ def movimiento():
 					rr.write(blos[i] + "\n")
 			rr.close()
 
-			punto=circles[blos[0]]
-			del circles[blos[0]]
+		
 			plan= PLAN()
 			plan.planes("doc.txt","p8.pddl","inicio.txt") 
 			send_image("feliz.jpg")
 			#print "tamaño while: ",len(circles1)
+			planner = Planner()
+			plann = planner.solve("blocksworld.pddl","p8.pddl")
+    		
+    		rr = open("elplan.txt",'w')
+    		if plann:
+        		rr.write('plan: ' + "\n")
+        		#print('plan:')
+        		for act in plann:
+        			rr.write(str(act))
+            		#print(act)
+    		else:
+       			rr.write('No hay un plan')
+        		#print('No plan was found')
+    		rr.close()
+    		pars = Parseo()
+    		acciones, parametros = pars.parseo("elplan.txt")
+    		print acciones, parametros
+    		punto=circles[blos[0]]
+			del circles[blos[0]]	
+    		'''
 			print "punto: ", punto[0],punto[1]
 			pun=pixel_to_baxter((punto[0], punto[1] ),dist)
 			centro1= pixel_to_baxter((480,300),dist)
@@ -303,7 +326,7 @@ def movimiento():
 			#print "puntox: ",puntox ,"puntoy: ",puntoy
 			rospy.sleep(0.5)
 			print "pun: ",[pun]
-	
+			
 			mover_baxter('base',[pun[0],pun[1],0.0],[-math.pi,0,0])
 			#pose_i = [pun[0]-0.05, pun[1]+0.05, zz, roll, pitch, yaw]
 			#pose = [pun[0]-0.05, pun[1]+0.05, zz, roll, pitch, yaw]
@@ -348,7 +371,7 @@ def movimiento():
 
 				i = i +  1
 				t=t-0.05
-
+				'''
 
 			
 def main():

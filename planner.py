@@ -84,10 +84,16 @@ if __name__ == '__main__':
     problem = sys.argv[2]
     planner = Planner()
     plan = planner.solve(domain, problem)
-    print('Time: ' + str(time.time() - start_time) + 's')
+    print('Time: ' + str(time.time() - start_time) + ' s')
+    rr = open("elplan.txt",'w')
     if plan:
+        rr.write('plan: ')
         print('plan:')
         for act in plan:
+            
+            rr.write(str(act))
             print(act)
     else:
+        rr.write('No hay un plan')
         print('No plan was found')
+    rr.close()    

@@ -8,12 +8,16 @@ class PLAN:
 		lis = mensaje
 		lis = lis.split("\n")
 		print lis
-
+		for i in range(len(lis)):
+			if lis[i] == '':
+				lis.pop(i)
 		mensajes = t.read()
 		print mensajes
 		lisa = mensajes
 		lisa = lisa.split("\n")
-		lisa.pop(len(lisa) - 1)
+		for i in range(len(lisa)):
+			if lisa[i] == '':
+				lisa.pop(i)
 		print lisa
 		r.write("(define (problem p8) "  + "\n" + "(:domain blocksworld)" +"\n"+ "(:objects " )
 		for i in range(len(lis)):

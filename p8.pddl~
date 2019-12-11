@@ -1,0 +1,6 @@
+(define (problem p8) 
+(:domain blocksworld)
+(:objects  ROJO   )
+(:init (onTable ROJO) (clear ROJO) (equal ROJO ROJO) 
+)
+(:goal (and (on  ROJO))))

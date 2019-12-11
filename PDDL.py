@@ -22,6 +22,7 @@ class PDDL_Parser:
         for t in re.findall(r'[()]|[^\s()]+', str):
             if t == '(':
                 stack.append(list)
+                #print stack.append(list)
                 list = []
             elif t == ')':
                 if stack:
