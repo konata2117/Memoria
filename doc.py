@@ -7,18 +7,18 @@ class PLAN:
 		mensaje = f.read()
 		lis = mensaje
 		lis = lis.split("\n")
-		print lis
+		#print lis
 		for i in range(len(lis)):
 			if lis[i] == '':
 				lis.pop(i)
 		mensajes = t.read()
-		print mensajes
+		#print mensajes
 		lisa = mensajes
 		lisa = lisa.split("\n")
 		for i in range(len(lisa)):
 			if lisa[i] == '':
 				lisa.pop(i)
-		print lisa
+		#print lisa
 		r.write("(define (problem p8) "  + "\n" + "(:domain blocksworld)" +"\n"+ "(:objects " )
 		for i in range(len(lis)):
 			r.write(" " + lis[i] + " ")
@@ -36,10 +36,11 @@ class PLAN:
 	 		r.write("(on "+ lis[i + 1] + " " + lis[i ] + ")")
 
 		r.write(")))")
-		print mensaje
+		#print mensaje
 		f.close()
 		r.close()
-		return lis
+		t.close()
+		#return lis
 
 if __name__ == '__main__':
 	plaan = PLAN()

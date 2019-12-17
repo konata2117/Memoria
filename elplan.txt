@@ -1,13 +1,37 @@
-plan:
+plan: 
 action: pickup
   parameters: ('verde',)
   positive_preconditions: [['clear', 'verde'], ['ontable', 'verde']]
   negative_preconditions: []
   add_effects: [['holding', 'verde']]
   del_effects: [['clear', 'verde'], ['ontable', 'verde']]
+action: pickup
+  parameters: ('amarillo',)
+  positive_preconditions: [['clear', 'amarillo'], ['ontable', 'amarillo']]
+  negative_preconditions: []
+  add_effects: [['holding', 'amarillo']]
+  del_effects: [['clear', 'amarillo'], ['ontable', 'amarillo']]
+action: pickup
+  parameters: ('rojo',)
+  positive_preconditions: [['clear', 'rojo'], ['ontable', 'rojo']]
+  negative_preconditions: []
+  add_effects: [['holding', 'rojo']]
+  del_effects: [['clear', 'rojo'], ['ontable', 'rojo']]
 action: stack
-  parameters: ('verde', 'rojo')
-  positive_preconditions: [['clear', 'rojo'], ['holding', 'verde']]
-  negative_preconditions: [['equal', 'verde', 'rojo']]
-  add_effects: [['clear', 'verde'], ['on', 'verde', 'rojo']]
-  del_effects: [['clear', 'rojo'], ['holding', 'verde']]
+  parameters: ('verde', 'azul')
+  positive_preconditions: [['clear', 'azul'], ['holding', 'verde']]
+  negative_preconditions: [['equal', 'verde', 'azul']]
+  add_effects: [['clear', 'verde'], ['on', 'verde', 'azul']]
+  del_effects: [['clear', 'azul'], ['holding', 'verde']]
+action: stack
+  parameters: ('amarillo', 'verde')
+  positive_preconditions: [['clear', 'verde'], ['holding', 'amarillo']]
+  negative_preconditions: [['equal', 'amarillo', 'verde']]
+  add_effects: [['clear', 'amarillo'], ['on', 'amarillo', 'verde']]
+  del_effects: [['clear', 'verde'], ['holding', 'amarillo']]
+action: stack
+  parameters: ('rojo', 'amarillo')
+  positive_preconditions: [['clear', 'amarillo'], ['holding', 'rojo']]
+  negative_preconditions: [['equal', 'rojo', 'amarillo']]
+  add_effects: [['clear', 'rojo'], ['on', 'rojo', 'amarillo']]
+  del_effects: [['clear', 'amarillo'], ['holding', 'rojo']]

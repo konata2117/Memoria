@@ -244,11 +244,28 @@ def mover_baxter(source_frame, trans, rot):
         # 3ms wait
 #cv.WaitKey(3)
 
-mover_baxter('base',[xx,yy,zz],[-math.pi,0,0])
+#mover_baxter('base',[xx,yy,zz],[-math.pi,0,0])
+def QtoE(): #Quaternion to Euler. Converts Quaternion angles(x, y, z, w) into Euler angles (x, y ,z) and prints them
+		euler = tf.transformations.euler_from_quaternion(limb_interface.endpoint_pose()['orientation'])
+		print ("Arm positions and Quaternion angles")
+		print (limb_interface.endpoint_pose())
+		print ("Arm Euler angles: ", euler)
 
-
-i = 0
+i = 0#{'left_w0': -0.4778350154263064, 'left_w1': 1.1362962686261202, 'left_w2': -0.5925000793207411, 'left_e0': -0.4851214241687621, 'left_e1': 1.7648448964621686, 'left_s0': 1.6689710972193301, 'left_s1': -0.28033498898605935}
+angles ={'left_s0': 1.6689710972193301, 'left_s1': -0.28033498898605935,'left_e0': -0.4851214241687621, 'left_e1': 1.7648448964621686,'left_w0': -0.4778350154263064, 'left_w1': 1.1362962686261202, 'left_w2': -0.5925000793207411 }
+def move_angles(limb, angle):
+		limb.set_joint_position_speed(1)
+		limb.move_to_joint_positions(angle)
+#angles = limb_interface.joint_angles() 
+def get_angles():
+		#Shows all the joint angles
+	angles = limb_interface.joint_angles() 
+	print angles
 def movimiento():
+	#QtoE()
+	get_angles()
+	#move_angles(limb_interface, angles)
+'''
 	numero = input("bloques: ")
 	blos = []
 	for i in range(numero):
@@ -383,7 +400,7 @@ def movimiento():
 
 				i = i +  1
 				t=t-0.02
-
+'''
 
 			
 def main():

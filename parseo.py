@@ -26,10 +26,10 @@ class Parseo:
 				t= ll[i].split(': ')
 				acciones['action'].append(t[1])
 						
-		print acciones
-		print len(acciones)
-		print parametro
-		print parametro['parametro'][0]
+		#print acciones
+		#print len(acciones)
+		#print parametro
+		#print parametro['parametro'][0]
 		patron1 = re.compile(r'\w\w+')
 		para = []
 		
@@ -39,15 +39,15 @@ class Parseo:
 			palabra = patron1.findall(qq)
 			para.append(palabra)
 			print palabra
-			print len(palabra)
-		#print para[1][0]
+			#print len(palabra)
+		#print para[0][0]
 		return acciones, para 
 
 
 def main():
 		par = Parseo()
 		rt , t = par.parseo('elplan.txt')
-		print "acciones ", rt
+		#print "acciones ", rt
 		print "parametros", t
 if __name__ == '__main__':
 	main()
