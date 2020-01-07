@@ -1,9 +1,8 @@
 (define (problem p8) 
 (:domain blocksworld)
-(:objects  AZUL  VERDE  AMARILLO  ROJO )
-(:init (onTable AZUL) (clear AZUL) (equal AZUL AZUL) 
-(onTable VERDE) (clear VERDE) (equal VERDE VERDE) 
-(onTable AMARILLO) (clear AMARILLO) (equal AMARILLO AMARILLO) 
+(:objects  VERDE  ROJO )
+(:init (onTable VERDE) (clear VERDE) (equal VERDE VERDE) 
 (onTable ROJO) (clear ROJO) (equal ROJO ROJO) 
+
 )
-(:goal (and (on VERDE AZUL)(on AMARILLO VERDE)(on ROJO AMARILLO))))
+(:goal (and (on ROJO VERDE))))

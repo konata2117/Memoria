@@ -102,6 +102,7 @@ class PDDL_Parser:
 
     def parse_action(self, group):
         name = group.pop(0)
+        
         if not type(name) is str:
             raise Exception('Action without name definition')
         for act in self.actions:
@@ -120,6 +121,7 @@ class PDDL_Parser:
                 parameters = []
                 untyped_parameters = []
                 p = group.pop(0)
+
                 while p:
                     t = p.pop(0)
                     if t == '-':
@@ -130,6 +132,7 @@ class PDDL_Parser:
                             parameters.append([untyped_parameters.pop(0), ptype])
                     else:
                         untyped_parameters.append(t)
+
                 while untyped_parameters:
                     parameters.append([untyped_parameters.pop(0), 'object'])
             elif t == ':precondition':

@@ -16,6 +16,7 @@ class Planner:
         parser.parse_problem(problem)
         # Parsed data
         state = parser.state
+
         goal_pos = parser.positive_goals
         goal_not = parser.negative_goals
         # Do nothing
@@ -23,24 +24,31 @@ class Planner:
             return []
         # Grounding process
         ground_actions = []
+
         for action in parser.actions:
+
             for act in action.groundify(parser.objects):
+               
                 ground_actions.append(act)
         # Search
+
         visited = [state]
         fringe = [state, None]
         while fringe:
             state = fringe.pop(0)
             plan = fringe.pop(0)
             for act in ground_actions:
+
                 if self.applicable(state, act.positive_preconditions, act.negative_preconditions):
                     new_state = self.apply(state, act.add_effects, act.del_effects)
                     if new_state not in visited:
                         if self.applicable(new_state, goal_pos, goal_not):
                             full_plan = [act]
+
                             while plan:
                                 act, plan = plan
                                 full_plan.insert(0, act)
+
                             return full_plan
                         visited.append(new_state)
                         fringe.append(new_state)
@@ -87,7 +95,7 @@ if __name__ == '__main__':
     print('Time: ' + str(time.time() - start_time) + ' s')
     rr = open("elplan.txt",'w')
     if plan:
-        rr.write('plan: ')
+        rr.write('plan: ' + '\n')
         print('plan:')
         for act in plan:
             

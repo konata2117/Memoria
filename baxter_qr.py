@@ -13,7 +13,7 @@ import math
 import numpy as np 
 
 #from limb import Limb 
-from circulos import hough
+#from circulos import hough
 from qrs import qr
 
 foto = None

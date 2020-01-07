@@ -264,6 +264,7 @@ def get_angles():
 def movimiento():
 	#QtoE()
 	get_angles()
+	
 	#move_angles(limb_interface, angles)
 '''
 	numero = input("bloques: ")
@@ -407,6 +408,9 @@ def main():
 	
 	movimiento()
 if __name__=='__main__':
-    main() 
-	#pose_i = [pun[0], pun[1], zz, roll, pitch, yaw]
-	#pose = [pun[0], pun[1], zz, roll, pitch, yaw]
+    main()
+    cf = {}
+    cf['q'] = 1
+    cf['a'] = 2
+    cf['z'] = 3
+    print cf
