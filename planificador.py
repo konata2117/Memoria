@@ -116,11 +116,11 @@ def pixel_to_baxter(px, dist):
         cam_y_offset=cam_y_offset + 0.22
         cam_x_offset=cam_x_offset +0.01
     if (px[0] > 200  and px[0] <= 300 and px[1] <= 200):
-        cam_y_offset=cam_y_offset + 0.20
-        cam_x_offset=cam_x_offset + 0.04
+        cam_y_offset=cam_y_offset + 0.18
+        cam_x_offset=cam_x_offset + 0.03
     
     if (px[0] > 300 and px[0]<= 400 and px[1] <= 200):
-        cam_y_offset=cam_y_offset + 0.22
+        cam_y_offset=cam_y_offset + 0.15
         cam_x_offset=cam_x_offset +0.04
     
     if (px[0] > 400 and px[0]<= 500 and px[1] <= 200):
@@ -130,27 +130,27 @@ def pixel_to_baxter(px, dist):
 
     if (px[0] > 500 and px[0] <= 550 and px[1] <= 200):
         cam_y_offset=cam_y_offset + 0.09
-        cam_x_offset=cam_x_offset -0.02
+        cam_x_offset=cam_x_offset + 0.02
     
     if (px[0] >= 550 and px[0] <= 600 and px[1] <= 200):
-        cam_y_offset=cam_y_offset + 0.06
+        cam_y_offset=cam_y_offset + 0.08
         cam_x_offset=cam_x_offset + 0.02
 
     if (px[0] > 600 and px[0]<= 620 and px[1] <= 200):
         cam_y_offset=cam_y_offset + 0.06
-        cam_x_offset=cam_x_offset - 0.03
+        cam_x_offset=cam_x_offset 
     
     if (px[0] > 620 and px[0] <= 700 and px[1] <= 200):
-        cam_y_offset=cam_y_offset + 0.03 #0.08
+        cam_y_offset=cam_y_offset + 0.06 #0.08
         cam_x_offset=cam_x_offset + 0.01
 
     
     if (px[0] > 700 and px[0]<= 750 and px[1] <= 200):      
-        cam_y_offset=cam_y_offset + 0.02 #revisar para mañana
-        cam_x_offset=cam_x_offset + 0.01 
+        cam_y_offset=cam_y_offset + 0.04 #revisar para mañana
+        cam_x_offset=cam_x_offset + 0.02 
     if (px[0] > 750 and px[0]<= 800 and px[1] <= 200):
         cam_x_offset = cam_x_offset 
-        cam_y_offset = cam_y_offset +0.05
+        cam_y_offset = cam_y_offset +0.03
     if (px[0]> 800 and px[0] < 850 and px[1] <= 200):
         cam_x_offset=cam_x_offset + 0.04
         cam_y_offset=cam_y_offset +0.06
@@ -166,26 +166,26 @@ def pixel_to_baxter(px, dist):
         cam_y_offset=cam_y_offset + 0.24
         cam_x_offset=cam_x_offset + 0.02
     if (px[0] > 200  and px[0] <= 300 and px[1] > 200):
-        cam_y_offset=cam_y_offset + 0.21
-        cam_x_offset=cam_x_offset 
+        cam_y_offset=cam_y_offset + 0.17
+        cam_x_offset=cam_x_offset - 0.03
     if (px[0] > 300 and px[0]<= 400 and px[1] > 200):
-        cam_y_offset=cam_y_offset + 0.23
-        cam_x_offset=cam_x_offset + 0.01
+        cam_y_offset=cam_y_offset + 0.18
+        cam_x_offset=cam_x_offset - 0.08
     if (px[0] > 400 and px[0]<= 500 and px[1] > 200):
         cam_y_offset=cam_y_offset + 0.21
         cam_x_offset=cam_x_offset +0.012 
     if (px[0] > 500 and px[0] <= 550 and px[1] > 200):
         cam_y_offset=cam_y_offset + 0.21
-        cam_x_offset=cam_x_offset + 0.03
+        cam_x_offset=cam_x_offset - 0.03
     if (px[0] >= 550 and px[0] <= 600 and px[1] > 200):
-        cam_y_offset=cam_y_offset + 0.08
-        cam_x_offset=cam_x_offset -0.04
+        cam_y_offset=cam_y_offset + 0.06
+        cam_x_offset=cam_x_offset -0.07
     if (px[0] > 600 and px[0]<= 620 and px[1] > 200):
-        cam_y_offset=cam_y_offset + 0.05
-        cam_x_offset=cam_x_offset - 0.05
+        cam_y_offset=cam_y_offset + 0.04
+        cam_x_offset=cam_x_offset - 0.09
     if (px[0] > 620 and px[0] <= 700 and px[1] > 200):
-        cam_y_offset=cam_y_offset + 0.06 #0.08
-        cam_x_offset=cam_x_offset -0.01
+        cam_y_offset=cam_y_offset + 0.05 #0.08
+        cam_x_offset=cam_x_offset -0.09
     if (px[0] > 700 and px[0]<= 750 and px[1] > 200):       
         cam_y_offset=cam_y_offset + 0.04 #revisar para mañana
         cam_x_offset=cam_x_offset - 0.05
@@ -202,7 +202,7 @@ def pixel_to_baxter(px, dist):
         
     print "px[0]", px[0]
     print "px[1]", px[1]
-    print "pose_i: ",pose_i
+    #print "pose_i: ",pose_i
     x = ((px[1]  - (height / 2)) * cam_calibracion * dist) + pose_i[0] + cam_x_offset
 
     y = ((px[0] - (width / 2)) * cam_calibracion * dist)\
@@ -212,7 +212,7 @@ def pixel_to_baxter(px, dist):
     x = ((px[0] - (width / 2)) * cam_calibracion * dist) + pose[0] + cam_x_offset
     y = ((px[1] - (height / 2)) * cam_calibracion * dist) + pose[1] + cam_y_offset
     '''
-    print x , y
+    #print x , y
     return (x, y)
 ##################################################################
 
@@ -266,7 +266,7 @@ i = 0
 def get_angles():
 		#Shows all the joint angles
 	angl = limb_interface.joint_angles() 
-	print angl
+	#print angl
 	return angl
 angles = { 'left_s0': 1.4200827143849217, 'left_s1': -0.12808739578843203,'left_e0': -0.07401457301547121, 'left_e1': 1.8875633594930017, 'left_w0': -0.813776807973212, 'left_w1': 1.2440584189750705, 'left_w2': 0.002684466378799474}
 
@@ -277,17 +277,15 @@ def move_angles(limb, angle):
 ################################################################
 
 def movimiento():
-
     move_angles(limb_interface,angles1)
+    move_angles(limb_interface,angles)
     angl = get_angles()
-
     r = open("doc.txt", 'r')
     mensaje = r.read()
     liss = mensaje
     blos = liss.split("\n")
     r.close()
     
-
     for i in range(len(blos)):
         if blos[i] == "":
             blos.pop(i)
@@ -298,7 +296,7 @@ def movimiento():
         circles= capt.capture()
         print circles
         frame=cv2.imread("qrdetectado.jpg")
-        print "bloque, circles", len(circles), len(blos)
+       # print "bloque, circles", len(circles), len(blos)
         s = 0
         bloques_encima = []
         '''
@@ -310,11 +308,11 @@ def movimiento():
         print angles1['left_w1']
         print angles1['left_w2']
         '''
-        if (angles1['left_s0'] < 1.8019516841588667) :
-        	print "angulos"
+        #if (angles1['left_s0'] < 1.8019516841588667) :
+        	#print "angulos"
         ang= get_angles()
         while circles and len(circles) == len(blos) and (1 < ang['left_s0'] < 1.8019516841588667):
-        	print "if circles encima"
+        	#print "if circles encima"
         	if s == len(blos) or len(blos) == 1:
         		break
         	#if len(blos) % 2 == 0:
@@ -323,14 +321,14 @@ def movimiento():
         				if abs(circles[blos[i]][0] - circles[blos[0]][0]) < 50 and len(blos) != 2:
         					if (circles[blos[i]][0] > circles[blos[0]][0]):
         			 			bloques_encima.append(blos[i])
-        			 			print "bloque encima blos - 1 mayor", bloques_encima
+        			 			#print "bloque encima blos - 1 mayor", bloques_encima
         			 			s = s + 1
 
         			 			#print s
         			 			break
         					else:
 	        			 		bloques_encima.append(blos[0])
-	        			 		print "bloque encima blos - 1 menor", bloques_encima
+	        			 		#print "bloque encima blos - 1 menor", bloques_encima
         			 			s = s + 1
         			 			break
         					s = s + 1
@@ -340,15 +338,15 @@ def movimiento():
         			if abs(circles[blos[i]][0] - circles[blos[i+1]][0]) < 50 and len(blos) != 2:
 	        			if (circles[blos[i]][1] > circles[blos[i + 1]][1]):
         			 		bloques_encima.append(blos[i + 1])
-        			 		print "bloque encima blos mayor", bloques_encima
+        			 		#print "bloque encima blos mayor", bloques_encima
         				else:
 	        			 	bloques_encima.append(blos[i ])
-	        			 	print "bloque encima blos - 1 menor", bloques_encima
+	        			 	#print "bloque encima blos - 1 menor", bloques_encima
         				s = s + 1
         			else: 
 	        			s = s + 1
  
-	        		print "i , s " ,i , s
+	        		#print "i , s " ,i , s
 	      
         bloques_encima = set(bloques_encima)
         bloques_encima = list(bloques_encima)
@@ -358,13 +356,15 @@ def movimiento():
         #	mover_baxter('base',[xx - 0.02 ,yy + 0.05,zz],[-math.pi,0,0])
         #if len(bloques_encima) != 0 :
         #	move_angles(limb_interface, angles1)
+       # if bloques_encima > 0 or (bloques_encima == 0 and ang1['left_s0'] > 1):
+        #	move_angles(limb_interface, angles1)
         while len(bloques_encima) > 0:
-        	
-        	mover_baxter('base',[xx- 0.05,yy + 0.01,zz],[-math.pi,0,0])
-        	print " angulos, " ,get_angles()
+        	move_angles(limb_interface, angles1)
+        	mover_baxter('base',[xx- 0.03,yy + 0.03,zz],[-math.pi,0,0])
+        #	print " angulos, " ,get_angles()
         	circles= capt.capture()
-        	print "circles, bloque encima", len(circles), len(bloques_encima)
-        	print "blosques encima circles: ", circles
+        #	print "circles, bloque encima", len(circles), len(bloques_encima)
+        	#print "blosques encima circles: ", circles
         	while circles and len(bloques_encima) > 0:
         		cir = circles.keys()
         		t = False
@@ -377,7 +377,7 @@ def movimiento():
         			break
         		else:
         			pu=circles[bloques_encima[0]]
-        			print "pu ", pu
+        			#print "pu ", pu
         		
         			puss = pixel_to_baxter((pu[0], pu[1] ),dist)
                 	mover_baxter('base',[puss[0],puss[1],0.0],[-math.pi,0,0])
@@ -391,7 +391,7 @@ def movimiento():
                 	if gripper.force()==0:
                 		print 'no hay nada en el gripper'
                 		send_image("que.jpg")
-                		mover_baxter('base',[xx,yy,zz],[-math.pi,0,0])
+                		mover_baxter('base',[xx - 0.04,yy ,zz],[-math.pi,0,0])
                 		gripper.open()
                 	#mover_baxter('base',[xx,yy,zz],[-math.pi,0,0])
                 		break
@@ -458,12 +458,10 @@ def movimiento():
         	  	pars = Parseo()
         	  	acciones, parametros = pars.parseo("elplan.txt")
         	  	print "accion y parametro " ,acciones, parametros
-        	  	
-
         	  	break
         	  else:
         	  	break
-        while circles1:
+        while circles1 and len(bloques_encima) == 0 and ang1['left_s0'] < 1:
             
             #poner el error del circle
             if len(blos) == 0 :
@@ -472,18 +470,57 @@ def movimiento():
                 break
             
             cir = {}
-            print "acciones", len(acciones['action'])
-
+            #print "acciones", len(acciones['action'])
+            punto=circles1[blos[0]]
+            print "punto: ", punto[0],punto[1]
+            del circles1[blos[0]]
+            print "punto: ", punto[0],punto[1]
+            pun=pixel_to_baxter((punto[0], punto[1] ),dist)
+            centro1= pixel_to_baxter((480,300),dist)
+            rospy.sleep(0.5)
+            print "pun: ",[pun]
+            mover_baxter('base',[pun[0],pun[1],0.0],[-math.pi,0,0])
+            send_image("do.jpg")
+            mover_baxter('base',[pun[0],pun[1],-0.18],[-math.pi,0,0])
+            rospy.sleep(0.5)
+            gripper.close()
+            rospy.sleep(0.5)
+            print "cosa: " ,gripper.force() 
+            if gripper.force()==0:
+                    print 'no hay nada en el gripper'
+                    send_image("que.jpg")
+                    mover_baxter('base',[xx - 0.04,yy,zz],[-math.pi,0,0])
+                    gripper.open()
+                    
+                    break        
+            else:
+                    rospy.sleep(0.3)
+                    mover_baxter('base',[pun[0],pun[1],0.0],[-math.pi,0,0])
+                    rospy.sleep(1)
+                    mover_baxter('base',[0.47,0.1,0.0],[-math.pi,0,0])
+                    rospy.sleep(1)
+                    mover_baxter('base',[0.47,0.1,-t],[-math.pi,0,0])
+                    gripper.open()
+                    rospy.sleep(0.2)
+                    mover_baxter('base',[0.47,0.1,t],[-math.pi,0,0])
+                    send_image("pop.jpg")
+                    rospy.sleep(0.5)
+                    mover_baxter('base',[xx,yy,zz],[-math.pi,0,0])
+              
+                    print "pase por aca"
+         
+            blos.pop(0)
+            t=t-0.05
             for i in range(len(acciones['action'])):
             	print "action", acciones['action'][i]
                 if acciones['action'][i] == 'pickup':
                     punto=circles[parametros[i][i].upper()]
 
-                    cir[parametros[i][i].upper()] = []
-                    cir[parametros[i][i].upper()].append(punto[0])
-                    cir[parametros[i][i].upper()].append(punto[1])
+                    #cir[parametros[i][i].upper()] = []
+                    #cir[parametros[i][i].upper()].append(punto[0])
+                    #cir[parametros[i][i].upper()].append(punto[1])
                     print "punto: ", punto[0],punto[1]
-                    print acciones['action'][i]
+                    #print acciones['action'][i]
                     print parametros[1]
                     
         
