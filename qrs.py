@@ -13,7 +13,7 @@ def qr(frame):
     args = vars(ap.parse_args())
 
 
-    print("[INFO] Inicializando variables y archivo .CSV")
+    #print("[INFO] Inicializando variables y archivo .CSV")
 
 
     # Abre el archivo CSV de salida para escribir e inicializar
@@ -46,19 +46,19 @@ def qr(frame):
         #cv2.recta(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
         cv2.rectangle(frame,(rect.left , rect.top), (rect.left + rect.width,rect.top + rect.height), (0,255,0), 2)
         cv2.circle(frame, (cx,cy), 3, (0,0,255),2)
-        print rect 
+        #print rect 
 
        # cv2.rectangle(frame, (round(x/2), round(y/2)), (round((x+w )/ 2), round((y+h)/ 2)) , (0,255,0), 2)
         # los datos del código de barras son un objeto byte, así que si queremos dibujarlos
         # en la imagen de salida, necesitamos convertirla a un string
         barcodeData = barcode.data.decode("utf-8")
-        print type(barcodeData) 
+        #print type(barcodeData) 
         barcodeType = barcode.type
         # dibuja los datos del código de barras y el tipo de código de barras en la imagen
         text = "{}". format (barcodeData)
         text= text.upper()
 
-        print type(text)
+        #print type(text)
         #cv2.putText(frame, text, (cx , cy), cv2.FONT_HERSHEY_SIMPLEX, 0.5,(0,255,0),2)
         cv2.putText(frame, text, (rect.left, rect.top-10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
         if barcodeData not in found:
@@ -68,7 +68,7 @@ def qr(frame):
                 found.add(barcodeData)
         lis[text]= punto
         punto= []
-        print lis
+        #print lis
 
         # Título de la vetnana
     cv2.imshow("QR_Reader", frame)
@@ -78,7 +78,7 @@ def qr(frame):
          #   break
 
     # Archivo .csv
-    print("[INFO] Finalizando, cerrando el archivo CSV....")
+    #print("[INFO] Finalizando, cerrando el archivo CSV....")
     csv.close()
     return lis
     #cv2.destroyAllWindows()
