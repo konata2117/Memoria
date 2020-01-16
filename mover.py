@@ -91,105 +91,15 @@ def mensaje_matriz_a_pose(T, frame):
 	return t
 
 def pixel_to_baxter(px, dist):
-	cam_x_offset    = -0.05   # Correccion de camara por los gripper, 0.04 / -0.015 0.045 -0.045 0.05
-	cam_y_offset    = -0.12 			#-0.15 0.12
-	'''
-	if (px[0] >1000):
 	
-		cam_y_offset= cam_y_offset + 0.05
-	'''
-	
-	if (px[0] > 0  and px[0] <= 100 and px[1] <= 200):
-		cam_y_offset=cam_y_offset + 0.28
-		cam_x_offset=cam_x_offset + 0.04
-	if (px[0] > 100  and px[0] <= 200 and px[1] <= 200):
-		cam_y_offset=cam_y_offset + 0.27
-		cam_x_offset=cam_x_offset +0.04
-	if (px[0] > 200  and px[0] <= 300 and px[1] <= 200):
-		cam_y_offset=cam_y_offset + 0.21
-		cam_x_offset=cam_x_offset + 0.04
-	
-	if (px[0] > 300 and px[0]<= 400 and px[1] <= 200):
-		cam_y_offset=cam_y_offset + 0.19
-		cam_x_offset=cam_x_offset +0.05
-	
-	if (px[0] > 400 and px[0]<= 500 and px[1] <= 200):
-		cam_y_offset=cam_y_offset + 0.12
-		cam_x_offset=cam_x_offset + 0.01	
-	
-
-	if (px[0] > 500 and px[0] <= 550 and px[1] <= 200):
-		cam_y_offset=cam_y_offset + 0.09
-		cam_x_offset=cam_x_offset -0.02
-	
-	if (px[0] >= 550 and px[0] <= 600 and px[1] <= 200):
-		cam_y_offset=cam_y_offset + 0.09
-		cam_x_offset=cam_x_offset + 0.02
-
-	if (px[0] > 600 and px[0]<= 620 and px[1] <= 200):
-		cam_y_offset=cam_y_offset + 0.06
-		cam_x_offset=cam_x_offset - 0.03
-	
-	if (px[0] > 620 and px[0] <= 700 and px[1] <= 200):
-		cam_y_offset=cam_y_offset + 0.05 #0.08
-		cam_x_offset=cam_x_offset + 0.05
-
-	
-	if (px[0] > 700 and px[0]<= 750 and px[1] <= 200):		
-		cam_y_offset=cam_y_offset + 0.02 #revisar para mañana
-		cam_x_offset=cam_x_offset + 0.05 
-	if (px[0] > 750 and px[0]<= 800 and px[1] <= 200):
-		cam_x_offset = cam_x_offset - 0.05
-		cam_y_offset = cam_y_offset +0.05
-	if (px[0]> 800 and px[0] < 850 and px[1] <= 200):
-		cam_x_offset=cam_x_offset - 0.03
-		cam_y_offset=cam_y_offset -0.01
-	if (px[0]> 850 and px[1] <= 200 ):
-		cam_x_offset=cam_x_offset + 0.05
-		cam_y_offset=cam_y_offset - 0.04
-	
-		
-	if (px[0] > 0  and px[0] <= 100 and px[1] > 200):
-		cam_y_offset=cam_y_offset + 0.3
-		cam_x_offset=cam_x_offset - 0.04
-	if (px[0] > 100  and px[0] <= 200 and px[1] > 200):
-		cam_y_offset=cam_y_offset + 0.26
-		cam_x_offset=cam_x_offset -0.06
-	if (px[0] > 200  and px[0] <= 300 and px[1] > 200):
-		cam_y_offset=cam_y_offset + 0.22
-		cam_x_offset=cam_x_offset - 0.04
-	if (px[0] > 300 and px[0]<= 400 and px[1] > 200):
-		cam_y_offset=cam_y_offset + 0.22
-		cam_x_offset=cam_x_offset + 0.01
-	if (px[0] > 400 and px[0]<= 500 and px[1] > 200):
-		cam_y_offset=cam_y_offset + 0.12
-		cam_x_offset=cam_x_offset -0.05	
-	if (px[0] > 500 and px[0] <= 550 and px[1] > 200):
-		cam_y_offset=cam_y_offset + 0.09
-		cam_x_offset=cam_x_offset -0.1
-	if (px[0] >= 550 and px[0] <= 600 and px[1] > 200):
-		cam_y_offset=cam_y_offset + 0.09
-		cam_x_offset=cam_x_offset -0.07
-	if (px[0] > 600 and px[0]<= 620 and px[1] > 200):
-		cam_y_offset=cam_y_offset + 0.06
-		cam_x_offset=cam_x_offset - 0.08
-	if (px[0] > 620 and px[0] <= 700 and px[1] > 200):
-		cam_y_offset=cam_y_offset + 0.04 #0.08
-		cam_x_offset=cam_x_offset -0.07
-	if (px[0] > 700 and px[0]<= 750 and px[1] > 200):		
-		cam_y_offset=cam_y_offset + 0.02 #revisar para mañana
-		cam_x_offset=cam_x_offset - 0.05
-	if (px[0] > 750 and px[0]<= 800 and px[1] > 200):
-		cam_x_offset = cam_x_offset + 0.05
-		cam_y_offset = cam_y_offset - 0.01
-	
-	if (px[0]> 800 and px[0] < 850 and px[1] > 200):
-		cam_x_offset=cam_x_offset - 0.07
-		cam_y_offset=cam_y_offset -0.03
-	if (px[0]> 850 and px[1] > 200 ):
-		cam_x_offset=cam_x_offset + 0.05
-		cam_y_offset=cam_y_offset - 0.04
-		
+	cam_x_offset = 0
+	cam_y_offset = 0
+	if px[1] > 100 and px[0] < 400:
+		cam_x_offset = -0.05
+		cam_y_offset = 0.08
+	if px[1] > 100 and px[0] > 400:
+		cam_y_offset = -0.08
+    	cam_x_offset = -0.05	
 	print "px[0]", px[0]
 	print "px[1]", px[1]
 	print "pose_i: ",pose_i
@@ -197,7 +107,7 @@ def pixel_to_baxter(px, dist):
 
 	y = ((px[0] - (width / 2)) * cam_calibracion * dist)\
 	     + pose_i[1] + cam_y_offset
-
+	
 	'''
 	x = ((px[0] - (width / 2)) * cam_calibracion * dist) + pose[0] + cam_x_offset
 	y = ((px[1] - (height / 2)) * cam_calibracion * dist) + pose[1] + cam_y_offset
@@ -253,6 +163,7 @@ def QtoE(): #Quaternion to Euler. Converts Quaternion angles(x, y, z, w) into Eu
 
 i = 0#{'left_w0': -0.4778350154263064, 'left_w1': 1.1362962686261202, 'left_w2': -0.5925000793207411, 'left_e0': -0.4851214241687621, 'left_e1': 1.7648448964621686, 'left_s0': 1.6689710972193301, 'left_s1': -0.28033498898605935}
 angles ={'left_s0': 1.6689710972193301, 'left_s1': -0.28033498898605935,'left_e0': -0.4851214241687621, 'left_e1': 1.7648448964621686,'left_w0': -0.4778350154263064, 'left_w1': 1.1362962686261202, 'left_w2': -0.5925000793207411 }
+
 def move_angles(limb, angle):
 		limb.set_joint_position_speed(1)
 		limb.move_to_joint_positions(angle)
@@ -401,8 +312,8 @@ def movimiento():
 
 				i = i +  1
 				t=t-0.02
-'''
 
+'''
 			
 def main():
 	

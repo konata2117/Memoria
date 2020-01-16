@@ -71,6 +71,8 @@ def qr(frame):
         #print lis
 
         # Título de la vetnana
+    frame = cv2.line(frame,(500,0),(500,800),(0,255,0),4)
+    frame = cv2.line(frame,(0,500),(960,500),(0,255,0),4)
     cv2.imshow("QR_Reader", frame)
        # cv2.waitKey(0)
 

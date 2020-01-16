@@ -243,11 +243,11 @@ def pixel_to_baxter(px, dist):
     	cam_x_offset = -0.05
     	cam_y_offset = 0.09
     if px[1] >= 300 and px[1] < 500 and px[0] >= 200 and px[0] < 500:
-    	cam_x_offset = -0.13
-    	cam_y_offset = 0.09
+    	cam_x_offset = -0.17
+    	cam_y_offset = 0.10
     if px[1] > 300 and px[1] < 500 and px[0] >= 500:
-    	cam_x_offset= -0.06
-    	cam_y_offset = -0.09
+    	cam_x_offset= -0.17
+    	cam_y_offset = -0.11
     if px[1] >= 500 and px[1] < 700 and px[0] >= 200 and px[0] < 500:
     	cam_x_offset= -0.03
     	cam_y_offset = 0.09
@@ -277,6 +277,9 @@ def pixel_to_baxter(px, dist):
     	cam_x_offset = -0.04
     	cam_y_offset = -0.05
     '''
+    if px[1] > 100 and px[1] < 150 and px[0] < 200:
+        cam_x_offset = -0.04
+        cam_y_offset = 0.10
     if (px[1] > 0 and px[1] < 100 and px[0] < 200):
     	cam_x_offset = -0.02
     	cam_y_offset = 0.09
@@ -287,12 +290,15 @@ def pixel_to_baxter(px, dist):
     	cam_x_offset = -0.04
     	cam_y_offset = 0.10
     if px[1] >= 100 and px[1] < 200 and px[0] >= 500:
-    	cam_x_offset = -0.03
-    	cam_y_offset = -0.11
+    	cam_x_offset = -0.04
+    	cam_y_offset = -0.12
     if px[1] > 0 and px[1] < 100 and px[0] >= 500:
     	cam_x_offset = -0.03
-    	cam_y_offset = -0.10
-    	'''
+    	cam_y_offset = -0.12
+    if px[1] >= 150 and	 px[1] < 200 and px[0] < 200:
+        cam_x_offset = -0.04
+        cam_y_offset = 0.11
+        '''
     if px[1] > 0 and px[0] <100 :
     	cam_x_offset = -0.05
     	cam_y_offset = -0.12
@@ -486,72 +492,50 @@ def movimiento():
         			puss = pixel_to_baxter((pu[0], pu[1] ),dist)
                 	mover_baxter('base',[puss[0] + 0.03,puss[1],0.0],[-math.pi,0,0])
                 	rospy.sleep(0.5)
-                	busquedas =capt.capture()
-                	print "busqueda", busquedas
-                	print "bloque de busqueda", bloque_busqueda
-                	cirr = busquedas.keys()
-                	tt = False
-                	for i in range(len(bloque_busqueda)):
-                		for j in range(len(cirr)):
-                			if cirr[j] == bloque_busqueda[i]:
-                				tt = True
-                	if tt == False:
-                		break
-                		#mover_baxter('base',[puss[0] ,puss[1] - 0.12,0.0],[-math.pi,0,0])
-                		#busquedas = capt.capture()
-                	else:
-                		
-                		pu1 = busquedas[bloques_encima[0]]
-                		print "pu1 " , pu1
-                		puss2 = pixel_to_baxter((pu1[0],pu1[1]),dist)
-                		mover_baxter('base',[puss2[0], puss2[1], -0.10],[-math.pi,0 ,0])
-                		send_image("do.jpg")
-                		mover_baxter('base',[puss2[0],puss2[1],-0.13],[-math.pi,0,0])
-                		rospy.sleep(0.5)
-                		gripper.close()
-                		rospy.sleep(0.5)
-            			#cosa= gripper.set_moving_force()
-                		print "cosa: " ,gripper.force()
-                		if gripper.force()==0:
+               		mover_baxter('base',[puss[0], puss[1], -0.10],[-math.pi,0 ,0])
+               		send_image("do.jpg")
+               		mover_baxter('base',[puss[0],puss[1],-0.13],[-math.pi,0,0])
+               		rospy.sleep(0.5)
+               		gripper.close()
+               		rospy.sleep(0.5)
+           			#cosa= gripper.set_moving_force()
+               		print "cosa: " ,gripper.force()
+               		if gripper.force()==0:
 	                		print 'no hay nada en el gripper'
                 			send_image("que.jpg")
                 			mover_baxter('base',[xx - 0.04,yy ,zz],[-math.pi,0,0])
                 			gripper.open()
                 		#mover_baxter('base',[xx,yy,zz],[-math.pi,0,0])
 	                		break
-                		else:
-	                		rospy.sleep(0.3)
-                			mover_baxter('base',[puss2[0],puss2[1],0.0],[-math.pi,0,0])
-                			rospy.sleep(1)
-                			if puss[0] < 400 :
-	                			mover_baxter('base',[puss2[0] - 0.13,puss2[1],0.0],[-math.pi,0,0])
-                				rospy.sleep(1)
-                				mover_baxter('base',[puss2[0] - 0.13,puss2[1],-0.16],[-math.pi,0,0])
-                				gripper.open()
-                				rospy.sleep(1)
-                				mover_baxter('base',[puss2[0] - 0.13,puss2[1],0.10],[-math.pi,0,0])
-                    		if puss[0] > 400 :
-	                    		mover_baxter('base',[puss2[0] - 0.17,puss2[1],0.0],[math.pi,0,0])
-                    			rospy.sleep(1)
-                    			mover_baxter('base',[puss2[0] - 0.17,puss2[1],-0.16],[math.pi,0,0])
-                    			gripper.open()
-                    			rospy.sleep(1)
-                    			mover_baxter('base',[puss2[0] - 0.17,puss2[1],0.08],[math.pi,0,0])
-                    		send_image("pop.jpg")
-                    	
-                    		rospy.sleep(0.5)
-                    		mover_baxter('base',[xx, yy + 0.02, zz],[-math.pi,0,0])
-                			#mover_baxter('base',[0.4,-0.3,t],[-math.pi,0,0])
-                			#pose_i = [pun[0], pun[1], z, roll, pitch, yaw]
-                			#pose = [pun[0], pun[1], z, roll, pitch, yaw]
-                    		print "pase por aca"
-                    		print "circles blo, bloque_encima ", circles2[bloques_encima[0]], bloques_encima[0]
-                    		del circles2[bloques_encima[0]]
-                    		del busquedas[bloques_encima[0]]
-                    		bloques_encima.pop(0)
-                    		bloque_busqueda.pop(0)
-                    		
-                    		print "circles blo, bloque_encima ", circles2, bloques_encima
+               		else:
+                            rospy.sleep(0.3)
+                            mover_baxter('base',[puss[0],puss[1],0.0],[-math.pi,0,0])
+                            rospy.sleep(1)
+                            if puss[0] < 400:
+                                mover_baxter('base',[puss[0] - 0.13,puss[1],0.0],[-math.pi,0,0])
+                                rospy.sleep(1)
+                                mover_baxter('base',[puss[0] - 0.13,puss[1],-0.16],[-math.pi,0,0])
+                                gripper.open()
+                                rospy.sleep(1)
+                                mover_baxter('base',[puss[0] - 0.13,puss[1],0.10],[-math.pi,0,0])
+                            if puss[0] > 400:
+                                mover_baxter('base',[puss[0] - 0.17,puss[1],0.0],[math.pi,0,0])
+                                rospy.sleep(1)
+                                mover_baxter('base',[puss[0] - 0.17,puss[1],-0.16],[math.pi,0,0])
+                                gripper.open()
+                                rospy.sleep(1)
+                                mover_baxter('base',[puss[0] - 0.17,puss[1],0.08],[math.pi,0,0])
+                            send_image("pop.jpg")
+                            rospy.sleep(0.5)
+                            mover_baxter('base',[xx, yy + 0.02, zz],[-math.pi,0,0])
+                            #mover_baxter('base',[0.4,-0.3,t],[-math.pi,0,0])
+                            #pose_i = [pun[0], pun[1], z, roll, pitch, yaw]
+                            #pose = [pun[0], pun[1], z, roll, pitch, yaw]
+                            print "pase por aca"
+                            print "circles blo, bloque_encima ", circles2[bloques_encima[0]], bloques_encima[0]
+                            del circles2[bloques_encima[0]]
+                            bloques_encima.pop(0)
+                            print "circles blo, bloque_encima ", circles2, bloques_encima
 
         
         circles1= capt.capture()
@@ -619,40 +603,22 @@ def movimiento():
             mover_baxter('base',[pun[0],pun[1],0.0],[-math.pi,0,0])
             
             send_image("do.jpg")
-            busquedas1= capt.capture()
-            print "busqueda 2" , bloque_busqueda1
-            print "busquedas ", busquedas1
-            cirr1 = busquedas1.keys()
-            t2 = False
-            for i in range(len(bloque_busqueda1)):
-            	for j in range(len(cirr1)):
-            		if cirr1[j] == bloque_busqueda1[i]:
-            			t2 = True
-            if t2 == False:
-            	break
-            else:	
-            	pu2 = busquedas1[blos[0]]
-            	if pu2[1] > 400: 
-            		pun2=pixel_to_baxter1((pu2[0],pu2[1]),dist)
-            	else: 
-            		pun2 = pixel_to_baxter((pu2[0], pu2[1]), dist)		
-            	mover_baxter ('base', [pun2[0], pun2[1], - 0.10], [-math.pi,0,0])
-            	rospy.sleep(0.5)
-            	mover_baxter('base',[pun2[0],pun2[1],-0.18],[-math.pi,0,0])
-            	rospy.sleep(0.5)
-            	gripper.close()
-            	rospy.sleep(0.5)
-            	print "cosa: " ,gripper.force() 
-            	if gripper.force()==0:
-                    print 'no hay nada en el gripper'
-                    send_image("que.jpg")
-                    mover_baxter('base',[xx - 0.04,yy,zz],[-math.pi,0,0])
-                    gripper.open()
-                    
-                    break        
-            	else:
+            mover_baxter ('base', [pun[0], pun[1], - 0.10], [-math.pi,0,0])
+            rospy.sleep(0.5)
+            mover_baxter('base',[pun[0],pun[1],-0.18],[-math.pi,0,0])
+            rospy.sleep(0.5)
+            gripper.close()
+            rospy.sleep(0.5)
+            print "cosa: " ,gripper.force() 
+            if gripper.force()==0:
+                print 'no hay nada en el gripper'
+                send_image("que.jpg")
+                mover_baxter('base',[xx ,yy - 0.02,zz],[-math.pi,0,0])
+                gripper.open()
+                break        
+            else:
                     rospy.sleep(0.3)
-                    mover_baxter('base',[pun2[0],pun2[1],0.0],[-math.pi,0,0])
+                    mover_baxter('base',[pun[0],pun[1],0.0],[-math.pi,0,0])
                     rospy.sleep(1)
                     mover_baxter('base',[0.47,0.1,0.0],[-math.pi,0,0])
                     rospy.sleep(1)
@@ -666,17 +632,16 @@ def movimiento():
                     mover_baxter('base',[0.47,0.1,t],[-math.pi,0,0])
                     send_image("pop.jpg")
                     rospy.sleep(0.5)
-                    mover_baxter('base',[xx ,yy,zz],[-math.pi,0,0])
+                    mover_baxter('base',[xx ,yy - 0.02,zz],[-math.pi,0,0])
                     rospy.sleep(0.5)
                     mover_baxter('base',[xx - 0.04, yy , zz],[-math.pi,0,0])
               
                     print "pase por aca"
-            		cir[blos[0]][0] = 0.47
-            		cir[blos[0]][1] = 0.1
-            		del busquedas1[blos[0]]
-            		bloque_busqueda1 = []
-            		blos.pop(0)
-            		t=t-0.05
+            	
+                    cir[blos[0]][0] = 0.47
+                    cir[blos[0]][1] = 0.1
+                    blos.pop(0)
+                    t=t-0.05
             
             print "circ", cir
             
@@ -700,13 +665,13 @@ def movimiento():
                     	mover_baxter('base',[punto1[0] + 0.03,punto1[1],t],[-math.pi,0,0])
                     	send_image("pop.jpg")
                     	rospy.sleep(0.5)
-                    	mover_baxter('base',[xx,yy,zz],[-math.pi,0,0])
+                    	mover_baxter('base',[xx,yy - 0.02,zz],[-math.pi,0,0])
                     	print "pase por aca"
                     	cir[parametros[i][0].upper()][0]= punto1[0]
                     	cir[parametros[i][0].upper()][1] = punto1[1]
-                    	blos.pop(0)
-               		i = i +  1
-               		t=t-0.05
+                        blos.pop(0)
+               	        i = i +  1
+               	        t=t-0.05
             	if acciones['action'][i] == 'pickup':
                     punto=circles1[parametros[i][0].upper()] #cambiar la iteracion aca de 2 y 1 listas
 
@@ -714,58 +679,32 @@ def movimiento():
                     #cir[parametros[i].upper()].append(punto[0])
                     #cir[parametros[i].upper()].append(punto[1])
                     print "punto: ", punto[0],punto[1]
-                    #print acciones['action'][i]
-                    
-                    
-        
-            #punto=circles[parametros[i][i].upper()]
-                    
                     del circles1[parametros[i][0].upper()]    
             		
                     print "punto: ", punto[0],punto[1]
                     pun=pixel_to_baxter((punto[0], punto[1] ),dist)
-                    #centro1= pixel_to_baxter((480,300),dist)
-                    busquedas2.append(blos[0])
-                    busquedas3= capt.capture()
-                    print "busquedas2 ", busquedas2
-                    print "busqueda3 ", busquedas3
-                    cir2 = busquedas3.keys()
-                    t1 = False
-                    for i in range(len(busquedas2)):
-                    	for j in range(len(cir2)):
-                    		if cir2[j] == busquedas2[i]:
-                    			t1 = True
-                    if t1 == False:
-                    	break
-
+                    rospy.sleep(0.5)
+                    print "pun: ",[pun]
+                    mover_baxter('base',[pun[0],pun[1],0.0],[-math.pi,0,0])
+                    send_image("do.jpg")
+                    mover_baxter('base',[pun[0], pun[1], -0.10],[-math.pi,0,0])
+                    rospy.sleep(0.5)
+                    mover_baxter('base',[pun[0],pun[1],-0.18],[-math.pi,0,0])
+                    rospy.sleep(0.5)
+                    gripper.close()
+                    mover_baxter('base', [pun[0], pun[1], -0.10], [-math.pi,0,0])
+                    rospy.sleep(0.5)
+                    mover_baxter('base',[pun[0],pun[1],0.0],[-math.pi,0,0])
+                    rospy.sleep(1)
+                    print "cosa: " ,gripper.force()
+                    if gripper.force()==0:
+                        print 'no hay nada en el gripper'
+                        send_image("que.jpg")
+                        mover_baxter('base',[xx ,yy - 0.02,zz],[-math.pi,0,0])
+                        gripper.open()
+                        break
                     else:
-
-    		           	rospy.sleep(0.5)
-    		           	print "pun: ",[pun]
-            			pn = busquedas3[blos[0]]
-            			pun3 = pixel_to_baxter((pn[0],pn[1]),dist)
-            			mover_baxter('base',[pun3[0],pun3[1],0.0],[-math.pi,0,0])
-            			send_image("do.jpg")
-            			mover_baxter('base',[pun3[0], pun3[1], -0.10],[-math.pi,0,0])
-            			rospy.sleep(0.5)
-            			mover_baxter('base',[pun3[0],pun3[1],-0.18],[-math.pi,0,0])
-            			rospy.sleep(0.5)
-            			gripper.close()
-            			mover_baxter('base', [pun3[0], pun3[1], -0.10], [-math.pi,0,0])
-            			rospy.sleep(0.5)
-            			mover_baxter('base',[pun3[0],pun3[1],0.0],[-math.pi,0,0])
-            			rospy.sleep(1)
-            			print "cosa: " ,gripper.force()
-            			if gripper.force()==0:
-            				print 'no hay nada en el gripper'
-            				send_image("que.jpg")
-            				mover_baxter('base',[xx - 0.04,yy,zz],[-math.pi,0,0])
-                        		gripper.open()
-                        		break
-                        	else:
-                        		busquedas3 ={}
-                        		busquedas2 = []
-                        		continue
+                        continue
 
        
                
@@ -779,5 +718,5 @@ def main():
     movimiento()
 if __name__=='__main__':
     main() 
-    #pose_i = [pun[0], pun[1], zz, roll, pitch, yaw]
+    #pose_i = [pun[0], pun[1], zz, roll, pitch, ya  w]
     #pose = [pun[0], pun[1], zz, roll, pitch, yaw]
