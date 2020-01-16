@@ -671,12 +671,13 @@ def movimiento():
                     mover_baxter('base',[xx - 0.04, yy , zz],[-math.pi,0,0])
               
                     print "pase por aca"
-            		cir[blos[0]][0] = 0.47
-            		cir[blos[0]][1] = 0.1
-            		del busquedas1[blos[0]]
-            		bloque_busqueda1 = []
-            		blos.pop(0)
-            		t=t-0.05
+            	cir[blos[0]][0] = 0.47
+            	cir[blos[0]][1] = 0.1
+            	del busquedas1[blos[0]]
+            	bloque_busqueda1 = []
+            	blos.pop(0)
+
+            	t=t-0.05
             
             print "circ", cir
             
